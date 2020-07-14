@@ -1,0 +1,9 @@
+---
+- name: Ansible dependency management
+  hosts: packer
+  user: root
+  tasks:
+    - name: installation
+      apk:
+        name: ansible
+        update_cache: yes

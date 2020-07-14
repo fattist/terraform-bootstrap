@@ -1,0 +1,8 @@
+---
+- name: Directory management
+  hosts: packer
+  user: root
+  gather_facts: no
+  tasks:
+    - name: create
+      file: path=/tmp state=directory mode=0444

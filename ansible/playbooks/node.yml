@@ -1,0 +1,16 @@
+---
+- name: Node dependency management
+  hosts: packer
+  user: root
+  gather_facts: no
+  tasks:
+    - name: node installation
+      apk:
+        name: nodejs=8.14.0-r0
+        update_cache: yes
+    - name: nodejs-npm installation
+      apk:
+        name: nodejs-npm
+        update_cache: yes
+    - name: npm safe patch
+      shell: npm config set unsafe-perm true

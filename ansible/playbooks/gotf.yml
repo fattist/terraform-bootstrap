@@ -1,0 +1,29 @@
+---
+- name: Terraform dependency management
+  hosts: packer
+  user: root
+  gather_facts: no
+  environment:
+    TF_DEV: true
+    TF_RELEASE: true
+  vars:
+    go_path: /root/go/bin
+    terraform_path: /root/go/src/github.com/hashicorp/terraform
+  tasks:
+    - name: download
+      git:
+        repo: https://github.com/hashicorp/terraform.git
+        dest: /root/go/src/github.com/hashicorp/terraform
+        version: v0.11.10
+    - name: create
+        file: path={{terraform_path}}/pkg state=directory mode=0444
+    - name: add {{go_path}} to path
+        lineinfile: >
+        dest=/etc/environment
+        state=present
+        backrefs=yes
+        regexp='PATH=(["]*)((?!.*?{{go_path}}).*?)(["]*)$'
+        line="PATH=\1\2:{{go_path}}\3"
+    - name: install
+        shell: /bin/bash scripts/build.sh
+        chdir: {{terraform_path}}

@@ -1,0 +1,38 @@
+decrypt:
+  - 'setup'
+  - 'vault:decrypt'
+  - 'copy:backend'
+  - 'clean:terraformsecrets'
+  - 'copy:decryptedkeys'
+
+destroy:
+  - 'terraform'
+  - 'shell:terraform-destroy'
+  - 'clean:terraform'
+
+encrypt:
+  - 'setup'
+  - 'clean:vault'
+  - 'copy:vault'
+  - 'copy:keys'
+  - 'vault:encrypt'
+
+setup:
+  - 'environment'
+
+tfvars:
+  - 'tf'
+  - 'variables:environment'
+
+terraform:
+  - 'setup'
+  - 'tfvars'
+  - 'copy:terraform'
+  - 'shell:terraform-init'
+  - 'shell:terraform-workspace'
+  - 'shell:terraform-refresh'
+  - 'shell:terraform-validate'
+  - 'shell:terraform-plan'
+  - 'shell:terraform-apply'
+  - 'shell:terraform-output'
+  - 'clean:terraform'

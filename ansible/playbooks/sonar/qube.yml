@@ -1,0 +1,21 @@
+---
+- name: Sonarqube Plugin Installation
+  hosts: packer
+  user: root
+  vars:
+    JAVA_HOME: /docker-java-home
+    SONARQUBE_HOME: /opt/sonarqube
+    USER: root
+  tasks:
+    - name: download gitlab plugin
+      shell: wget https://github.com/gabrie-allaigre/sonar-gitlab-plugin/releases/download/4.0.0/sonar-gitlab-plugin-4.0.0.jar
+      args:
+        chdir: "{{ SONARQUBE_HOME }}/extensions/plugins"
+    - name: download oauth plugin
+      shell: wget https://github.com/gabrie-allaigre/sonar-auth-gitlab-plugin/releases/download/1.2.2/sonar-auth-gitlab-plugin-1.2.2.jar
+      args:
+        chdir: "{{ SONARQUBE_HOME }}/extensions/plugins"
+    - name: gitlab ssl download
+      shell: "openssl s_client -connect gitlab.com:443 -showcerts > /{{ USER }}/gitlab.crt"
+    - name: ssl jdk installation
+      shell: "{{ JAVA_HOME }}/bin/keytool -import -file /{{ USER }}/gitlab.crt -keystore {{ JAVA_HOME }}/jre/lib/security/cacerts -alias gitlab"

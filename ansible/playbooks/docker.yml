@@ -1,0 +1,10 @@
+---
+- name: Docker dependency management
+  hosts: packer
+  user: root
+  gather_facts: no
+  tasks:
+    - name: installation
+      apk:
+        name: docker
+        update_cache: yes
