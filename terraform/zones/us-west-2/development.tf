@@ -9,13 +9,6 @@ provider "aws" {
   region = var.REGION
 }
 
-provider "aws" {
-  alias = "global"
-  version = "~> 2.57.0"
-  profile = "mental-global"
-  region = "us-east-1"
-}
-
 terraform {
   backend "s3" {
     encrypt = "true"
@@ -55,8 +48,11 @@ module "apigw-link" {
 
 # R53
 #####
-data "aws_route53_zone" "domain" {
-  name = var.domain
+module "dns-records" {
+  source = "./services/aws/r53"
+  domain = "mhd.fatt.dev"
+  profile = var.PROFILE
+  service = "mhd"
 }
 
 # S3

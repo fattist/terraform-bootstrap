@@ -1,4 +1,4 @@
-variable "domain_name" { type = string }
+variable "domain" { type = string }
 variable "ttl" {
     type = number
     default = 60
@@ -10,8 +10,12 @@ variable "validation_method" {
 variable "zone_id" { type = string }
 
 resource "aws_acm_certificate" "cert" {
-  domain_name = var.domain_name
+  domain_name = var.domain
   validation_method = var.validation_method
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_route53_record" "record" {
