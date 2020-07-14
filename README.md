@@ -1,6 +1,6 @@
 # infrastructure
 
-Very important, read first: https://team-ava.atlassian.net/wiki/spaces/AVA/pages/119734308/Running+Terraform
+Very important, read first: https://fattist.atlassian.net/wiki/spaces/FATT/pages/112295937/AWS+MFA+setup+for+development
 
 
 ## Setup
@@ -26,7 +26,7 @@ If you haven't read the Confluence document on how to run TF with MFA, the follo
 If you're using more than one version of TF locally, always be sure to use the `.terraform-version` defined within the repo. You will not be allowed to execute TF on this project with any other version.
 
 ```
-aws-vault exec elovee-development -- npx grunt terraform --env=<environment>
+aws-vault exec <profile-name> -- npx grunt terraform --env=<environment>
 ```
 
 ## Notes
