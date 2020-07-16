@@ -1,3 +1,4 @@
+variable "OPSGENIE_SRE_ENDPOINT" { type = string }
 variable "PROFILE" { type = string }
 variable "REGION" { type = string }
 

@@ -46,6 +46,15 @@ module "apigw-link" {
   subnets = module.networking.private_subnets
 }
 
+# DDB
+#####
+module "ddb" {
+  source = "./services/aws/ddb"
+  account_arn = data.aws_caller_identity.current.account_id
+  region = var.REGION
+  # sns_arn = module.opsgenie.sns_arn
+}
+
 # R53
 #####
 module "dns-records" {
@@ -102,4 +111,12 @@ module "ssm-sls-apigw-sg" {
   source = "./modules/aws/ssm/string"
   service = "vpc/sg/apigw"
   value = module.security.apigw_id
+}
+
+# MONITORING
+############
+
+module "opsgenie" {
+  source = "./services/opsgenie"
+  endpoint = var.OPSGENIE_SRE_ENDPOINT
 }
