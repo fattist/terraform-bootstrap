@@ -3,22 +3,19 @@ variable "alarms" {
         alarm_actions = list(string)
         alarm_name = string
         comparison_operator = string
+        dimension = object({})
         evaluation_periods = number
         metric_name = string
         namespace = string
         period = number
         statistic = string
         threshold = number
-        dimension = object({
-            key = string
-            value = string
-        })
     }))
 }
 
 resource "aws_cloudwatch_metric_alarm" "alarm" {
     count = length(var.alarms)
-    
+
     alarm_actions = var.alarms[count.index].alarm_actions
     alarm_name = var.alarms[count.index].alarm_name
     comparison_operator = var.alarms[count.index].comparison_operator

@@ -51,8 +51,8 @@ module "apigw-link" {
 module "ddb" {
   source = "./services/aws/ddb"
   account_arn = data.aws_caller_identity.current.account_id
+  alarm_sns_arn = module.opsgenie.sns_arn
   region = var.REGION
-  # sns_arn = module.opsgenie.sns_arn
 }
 
 # R53
