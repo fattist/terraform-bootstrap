@@ -1,6 +1,6 @@
 # infrastructure
 
-Very important, read first: https://fattist.atlassian.net/wiki/spaces/FATT/pages/112295937/AWS+MFA+setup+for+development
+Very important, read first: https://fattist.atlassian.net/wiki/spaces/OSS/pages/112295937/AWS+MFA+setup+for+development
 
 
 ## Setup
